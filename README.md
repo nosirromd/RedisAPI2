@@ -16,7 +16,7 @@ coding and extending the feature set to improve my understanding by forcing deep
 
 * Describe any prerequisites, libraries, OS version, etc., needed before installing program.
 * Docker
-* .Net Core 5
+* .Net Core 6
 * Microsoft.Extensions.StackExchange.Redis
 * Redis
 
