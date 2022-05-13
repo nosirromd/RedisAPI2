@@ -1,3 +1,4 @@
+using System.Text.Json;
 using RedisAPI2.Models;
 using StackExchange.Redis;
 
@@ -14,7 +15,14 @@ namespace RedisAPI2.Data
 
         public void CreatePlatform(Platform plat)
         {
-            throw new NotImplementedException();
+            if (plat == null)
+            {
+                throw new ArgumentOutOfRangeException(nameof(plat));
+            }
+
+            var db = _redis.GetDatabase();
+            var serialPlat = JsonSerializer.Serialize(plat);
+            db.StringSet(plat.Id, serialPlat);
         }
 
         public IEnumerable<Platform> GetAllPlatforms()
@@ -22,9 +30,21 @@ namespace RedisAPI2.Data
             throw new NotImplementedException();
         }
 
-        public Platform GetPlatformById(string id)
+        public Platform? GetPlatformById(string id)
         {
-            throw new NotImplementedException();
+            if (id == null)
+            {
+                throw new ArgumentOutOfRangeException(nameof(id));
+            }
+
+            var db = _redis.GetDatabase();
+            var serialPlat = db.StringGet(id);
+            if (!string.IsNullOrEmpty(serialPlat))
+            {
+                return JsonSerializer.Deserialize<Platform>(serialPlat);
+            }
+
+            return null;
         }
     }
 }
