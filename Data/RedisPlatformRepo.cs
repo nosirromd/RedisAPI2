@@ -23,6 +23,7 @@ namespace RedisAPI2.Data
             var db = _redis.GetDatabase();
             var serialPlat = JsonSerializer.Serialize(plat);
             db.StringSet(plat.Id, serialPlat);
+            db.SetAdd("PlatformSet",serialPlat);
         }
 
         public IEnumerable<Platform> GetAllPlatforms()
