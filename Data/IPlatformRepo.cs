@@ -6,7 +6,7 @@ namespace RedisAPI2.Data
     {
         void CreatePlatform(Platform plat);
         Platform? GetPlatformById(string id);
-        IEnumerable<Platform> GetAllPlatforms();
+        IEnumerable<Platform?>? GetAllPlatforms();
     }
 
 
